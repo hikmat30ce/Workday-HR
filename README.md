@@ -19,7 +19,7 @@ workday.hr.target.password=IntegrationPassword
 
 # Build application
 build this application so that to generate classes from above configuration in `workday.properties` file.<br />
-This will generate code in target folder which us used in our code to implement Workday webservice operations.</br />
+This will generate code in target folder which is used in our code to implement Workday webservice operations.<br />
 
 # Note:
 Currently only get-worker functionality is implemented. I really need contributers to make it big project and it will solve alot of people issues when they want to integrate workday with their local enterprise applications.
