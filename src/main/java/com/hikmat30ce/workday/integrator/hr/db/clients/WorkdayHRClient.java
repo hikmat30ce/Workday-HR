@@ -16,6 +16,8 @@ import com.hikmat30ce.workday.integrator.hr.generated.WorkerRequestReferencesTyp
 import com.hikmat30ce.workday.integrator.hr.generated.WorkerObjectType;
 import com.hikmat30ce.workday.integrator.hr.generated.WorkerObjectIDType;
 import com.hikmat30ce.workday.integrator.hr.generated.GetWorkersResponseRootType;
+import com.hikmat30ce.workday.integrator.hr.generated.ResponseFilterType;
+import java.math.BigDecimal;
 import javax.xml.bind.JAXBElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
@@ -54,7 +56,16 @@ public class WorkdayHRClient extends WebServiceGatewaySupport {
 
         workerRequestReferencesType.getWorkerReference().add(workerObjectType);
 
-        req.setRequestReferences(workerRequestReferencesType);
+        
+        
+        
+        //Response_Filter Start
+        ResponseFilterType responseFilterType = new ResponseFilterType();
+        responseFilterType.setCount(BigDecimal.valueOf(999)); //count set to 999 per page
+        //Response_Filter End
+        
+        // req.setRequestReferences(workerRequestReferencesType); // for now single user call is dissabled 
+        req.setResponseFilter(responseFilterType);
         req.setVersion(env.getRequiredProperty("workday.hr.target.version"));
 
         Object ss = objectFactory.createGetWorkersRequest(req);

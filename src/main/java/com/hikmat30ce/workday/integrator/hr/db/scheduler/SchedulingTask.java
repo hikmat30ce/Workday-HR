@@ -30,7 +30,9 @@ import com.hikmat30ce.workday.integrator.hr.generated.WorkersResponseDataType;
 
 /**
  *
- * @author Administrator
+ * @author Hikmat Ullah
+ * @skype huk9791
+ * @email huk9191@gmail.com
  */
 @Component
 public class SchedulingTask {
@@ -58,8 +60,9 @@ public class SchedulingTask {
         WorkdayHRClient client = context.getBean(WorkdayHRClient.class);
         WorkersResponseDataType response = client.GetWorkers();
 
-        Tblgetworkers tblgetworkers = new Tblgetworkers();
+       
         for (WorkerType worker : response.getWorker()) {
+             Tblgetworkers tblgetworkers = new Tblgetworkers();
             log.info("Worker_Reference Descriptor: " + worker.getWorkerReference().getDescriptor());
 
             for (WorkerObjectIDType Worker_ID : worker.getWorkerReference().getID()) {
