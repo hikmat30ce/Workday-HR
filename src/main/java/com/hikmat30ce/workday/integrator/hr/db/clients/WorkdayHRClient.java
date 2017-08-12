@@ -35,7 +35,7 @@ public class WorkdayHRClient extends WebServiceGatewaySupport {
     Environment env;
     private static final Logger log = LoggerFactory.getLogger(WorkdayHRClient.class);
 
-    public WorkersResponseDataType GetWorkers() {
+    public GetWorkersResponseRootType GetWorkers(int count, int currentPage) {
         ObjectFactory objectFactory = new ObjectFactory();
         GetWorkersRequestType req = new GetWorkersRequestType();
 
@@ -56,14 +56,12 @@ public class WorkdayHRClient extends WebServiceGatewaySupport {
 
         workerRequestReferencesType.getWorkerReference().add(workerObjectType);
 
-        
-        
-        
         //Response_Filter Start
         ResponseFilterType responseFilterType = new ResponseFilterType();
-        responseFilterType.setCount(BigDecimal.valueOf(999)); //count set to 999 per page
+        responseFilterType.setCount(BigDecimal.valueOf(count)); //count set to 999 per page
+        responseFilterType.setPage(BigDecimal.valueOf(currentPage));
         //Response_Filter End
-        
+
         // req.setRequestReferences(workerRequestReferencesType); // for now single user call is dissabled 
         req.setResponseFilter(responseFilterType);
         req.setVersion(env.getRequiredProperty("workday.hr.target.version"));
@@ -79,6 +77,8 @@ public class WorkdayHRClient extends WebServiceGatewaySupport {
                                 new Security(env.getRequiredProperty("workday.hr.target.username") + "@"
                                         + env.getRequiredProperty("workday.hr.target.tenant"),
                                         env.getRequiredProperty("workday.hr.target.password"))))).getValue();
-        return response.getResponseData();
+
+        log.info("Current page: " + Integer.toString(currentPage));
+        return response;
     }
 }

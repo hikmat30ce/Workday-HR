@@ -5,11 +5,10 @@
  */
 package com.hikmat30ce.workday.integrator.hr.db.repository;
 
-
 import com.hikmat30ce.workday.integrator.hr.db.models.Tblgetworkers;
+import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
-
 
 /**
  *
@@ -20,4 +19,5 @@ import org.springframework.stereotype.Component;
 @Component
 public interface TblgetworkersRepository extends CrudRepository<Tblgetworkers, Long> {
 
+    List<Tblgetworkers> findByemployeeid(String employeeid);
 }
