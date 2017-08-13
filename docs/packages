@@ -1,0 +1,9 @@
+com.hikmat30ce.workday.integrator.hr.db
+com.hikmat30ce.workday.integrator.hr.db.clients
+com.hikmat30ce.workday.integrator.hr.db.config
+com.hikmat30ce.workday.integrator.hr.db.helpers
+com.hikmat30ce.workday.integrator.hr.db.models
+com.hikmat30ce.workday.integrator.hr.db.repository
+com.hikmat30ce.workday.integrator.hr.db.scheduler
+com.hikmat30ce.workday.integrator.hr.db.security
+com.hikmat30ce.workday.integrator.hr.generated
