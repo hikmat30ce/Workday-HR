@@ -260,10 +260,22 @@ public class GetWorkersClient extends WebServiceGatewaySupport {
         return response;
     }
 
+    /**
+     *
+     * <pre>
+     * get employee list of type String
+     * @return employeeIDList of type String
+     * </pre>
+     * 
+     */
     public List<String> getEmployeeIDList() {
         return employeeIDList;
     }
 
+     /**
+      * Set Employee or Contingent Worker List
+      * @param employeeIDList 
+      */
     public void setEmployeeIDList(List<String> employeeIDList) {
         this.employeeIDList = employeeIDList;
     }
