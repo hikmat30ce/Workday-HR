@@ -5,7 +5,7 @@
  */
 package com.hikmat30ce.workday.integrator.hr.db.config;
 
-import com.hikmat30ce.workday.integrator.hr.db.clients.WorkdayHRClient;
+import com.hikmat30ce.workday.integrator.hr.db.clients.GetWorkersClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +21,7 @@ import org.springframework.context.annotation.PropertySource;
  */
 @PropertySource("workday.properties")
 @Configuration
-public class WorkdayHRConfiguration {
+public class GetWorkersClientConfiguration {
 
     @Autowired
     Environment env;
@@ -36,8 +36,8 @@ public class WorkdayHRConfiguration {
     }
 
     @Bean
-    public WorkdayHRClient workdayHRClient(Jaxb2Marshaller marshaller) {
-        WorkdayHRClient client = new WorkdayHRClient();
+    public GetWorkersClient workdayHRClient(Jaxb2Marshaller marshaller) {
+        GetWorkersClient client = new GetWorkersClient();
         client.setDefaultUri(env.getRequiredProperty("workday.hr.target.host") + "/ccx/service/"
                 + env.getRequiredProperty("workday.hr.target.tenant") + "/Human_Resources/"
                 + env.getRequiredProperty("workday.hr.target.version"));

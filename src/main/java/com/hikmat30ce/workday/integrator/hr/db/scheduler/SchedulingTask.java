@@ -16,13 +16,15 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.xml.sax.SAXException;
-import com.hikmat30ce.workday.integrator.hr.db.clients.WorkdayHRClient;
-import com.hikmat30ce.workday.integrator.hr.db.config.WorkdayHRConfiguration;
+import com.hikmat30ce.workday.integrator.hr.db.clients.GetWorkersClient;
+import com.hikmat30ce.workday.integrator.hr.db.config.GetWorkersClientConfiguration;
 import com.hikmat30ce.workday.integrator.hr.db.helpers.GetWorkersHelper;
 import com.hikmat30ce.workday.integrator.hr.db.models.Tblgetworkers;
 import com.hikmat30ce.workday.integrator.hr.db.repository.TblgetworkersRepository;
 import com.hikmat30ce.workday.integrator.hr.generated.GetWorkersResponseRootType;
+import java.text.ParseException;
 import java.util.List;
+import javax.xml.datatype.DatatypeConfigurationException;
 
 /**
  *
@@ -44,45 +46,62 @@ public class SchedulingTask {
     //@Scheduled(fixedRate = 43200000) //12 hrs
     @Scheduled(fixedRate = 3600000) //1 hr
     // @Scheduled(fixedRate = 60000)
-    public void WDGetWorkers() throws SAXException, IOException, ParserConfigurationException {
+    public void WDGetWorkers() throws SAXException, IOException, ParserConfigurationException, DatatypeConfigurationException, ParseException {
 
         log.info("The time is now {}", Long.toString((new Timestamp(System.currentTimeMillis() / 1000)).getTime()));
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(WorkdayHRConfiguration.class);
-        WorkdayHRClient client = context.getBean(WorkdayHRClient.class);
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(GetWorkersClientConfiguration.class);
+        GetWorkersClient client = context.getBean(GetWorkersClient.class);
 
         int counter = 1;
 
         do {
-            GetWorkersResponseRootType getWorkersResponseRootType = client.GetWorkers(counter);
-            totalPages = Integer.parseInt(getWorkersResponseRootType.getResponseResults().getTotalPages().toString());
-            getWorkersResponseRootType.getResponseData().getWorker().stream().map((worker) -> new GetWorkersHelper(worker)).map((GetWorkersHelper workersHelper) -> {
-                List<Tblgetworkers> tblgetworkers = tblgetworkersRepository.findByemployeeid(workersHelper.getEmployeeid());
-                Tblgetworkers tblgetworker;
-                if (tblgetworkers != null && tblgetworkers.size() > 0) {
-                    tblgetworker = tblgetworkers.get(0);
-                    log.info("Updating worker : " + workersHelper.getEmployeeid());
-                } else {
-                    tblgetworker = new Tblgetworkers();
-                    tblgetworker.setEmployeeid(workersHelper.getEmployeeid());
-                    log.info("Creating worker : " + workersHelper.getEmployeeid());
-                }
+            client.setTimeZone("Asia/Karachi");
+            client.setResponseFilterTypeEnabled(true);
+            client.setCurrentPage(counter);
 
-                tblgetworker.setUserid(workersHelper.getUserid());
-                tblgetworker.setDob(workersHelper.getDob());
-                tblgetworker.setFormattedname(workersHelper.getFormattedname());
-                tblgetworker.setFirstname(workersHelper.getFirstname());
-                tblgetworker.setLastname(workersHelper.getLastname());
-                tblgetworker.setCountryname(workersHelper.getCountryname());
-                tblgetworker.setGender(workersHelper.getGender());
-                tblgetworker.setMaritalstatus(workersHelper.getMaritalstatus());
-                tblgetworker.setEthnicity(workersHelper.getEthnicity());
-                tblgetworker.setCitizenshipstatuscode(workersHelper.getCitizenshipstatuscode());
-                tblgetworker.setSocialsecuritynumber(workersHelper.getSocialsecuritynumber());
-                tblgetworker.setPassportid(workersHelper.getPassportid());
-                return tblgetworker;
-            }).forEach((tblgetworker) -> {
-                tblgetworkersRepository.save(tblgetworker);
-            });
+            //Adding transction log
+            client.setTransactionLogEnabled(true);
+            client.setUpdated_From("2017-08-13 17:28:00");
+            client.setUpdated_Through("2017-08-13 17:30:00");
+            client.setEffective_From("2017-08-13 00:00:00");
+            client.setEffective_Through("2017-08-13 23:59:00");
+
+            //client.setAsOfEffectiveDate("2012-09-13");
+            //client.setAsOfEntryDateTime("2012-09-13");
+            GetWorkersResponseRootType getWorkersResponseRootType = client.GetWorkers();
+
+            totalPages = Integer.parseInt(getWorkersResponseRootType.getResponseResults().getTotalPages().toString());
+
+            if (getWorkersResponseRootType.getResponseData() != null && getWorkersResponseRootType.getResponseData().getWorker() != null) {
+                getWorkersResponseRootType.getResponseData().getWorker().stream().map((worker) -> new GetWorkersHelper(worker)).map((GetWorkersHelper workersHelper) -> {
+                    List<Tblgetworkers> tblgetworkers = tblgetworkersRepository.findByemployeeid(workersHelper.getEmployeeid());
+                    Tblgetworkers tblgetworker;
+                    if (tblgetworkers != null && tblgetworkers.size() > 0) {
+                        tblgetworker = tblgetworkers.get(0);
+                        log.info("Updating worker : " + workersHelper.getEmployeeid());
+                    } else {
+                        tblgetworker = new Tblgetworkers();
+                        tblgetworker.setEmployeeid(workersHelper.getEmployeeid());
+                        log.info("Creating worker : " + workersHelper.getEmployeeid());
+                    }
+
+                    tblgetworker.setUserid(workersHelper.getUserid());
+                    tblgetworker.setDob(workersHelper.getDob());
+                    tblgetworker.setFormattedname(workersHelper.getFormattedname());
+                    tblgetworker.setFirstname(workersHelper.getFirstname());
+                    tblgetworker.setLastname(workersHelper.getLastname());
+                    tblgetworker.setCountryname(workersHelper.getCountryname());
+                    tblgetworker.setGender(workersHelper.getGender());
+                    tblgetworker.setMaritalstatus(workersHelper.getMaritalstatus());
+                    tblgetworker.setEthnicity(workersHelper.getEthnicity());
+                    tblgetworker.setCitizenshipstatuscode(workersHelper.getCitizenshipstatuscode());
+                    tblgetworker.setSocialsecuritynumber(workersHelper.getSocialsecuritynumber());
+                    tblgetworker.setPassportid(workersHelper.getPassportid());
+                    return tblgetworker;
+                }).forEach((tblgetworker) -> {
+                    tblgetworkersRepository.save(tblgetworker);
+                });
+            }
             counter++;
         } while (counter <= totalPages);
     }
