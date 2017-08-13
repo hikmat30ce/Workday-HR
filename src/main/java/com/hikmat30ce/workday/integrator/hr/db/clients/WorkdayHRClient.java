@@ -35,7 +35,8 @@ public class WorkdayHRClient extends WebServiceGatewaySupport {
     Environment env;
     private static final Logger log = LoggerFactory.getLogger(WorkdayHRClient.class);
 
-    public GetWorkersResponseRootType GetWorkers(int count, int currentPage) {
+    public GetWorkersResponseRootType GetWorkers( int currentPage) {
+        log.info("Current per page count : " + env.getRequiredProperty("workday.hr.getworkers.count"));
         ObjectFactory objectFactory = new ObjectFactory();
         GetWorkersRequestType req = new GetWorkersRequestType();
 
@@ -58,7 +59,7 @@ public class WorkdayHRClient extends WebServiceGatewaySupport {
 
         //Response_Filter Start
         ResponseFilterType responseFilterType = new ResponseFilterType();
-        responseFilterType.setCount(BigDecimal.valueOf(count)); //count set to 999 per page
+        responseFilterType.setCount(BigDecimal.valueOf(Integer.parseInt(env.getRequiredProperty("workday.hr.getworkers.count")))); //count set to 999 per page
         responseFilterType.setPage(BigDecimal.valueOf(currentPage));
         //Response_Filter End
 

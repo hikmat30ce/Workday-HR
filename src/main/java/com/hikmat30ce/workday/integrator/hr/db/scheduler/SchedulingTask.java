@@ -34,7 +34,6 @@ import java.util.List;
 public class SchedulingTask {
 
     private static final Logger log = LoggerFactory.getLogger(SchedulingTask.class);
-    private static final int count = 800;
     private int totalPages = 0;
 
     @Autowired // This means to get the bean called userRepository
@@ -54,7 +53,7 @@ public class SchedulingTask {
         int counter = 1;
 
         do {
-            GetWorkersResponseRootType getWorkersResponseRootType = client.GetWorkers(count, counter);
+            GetWorkersResponseRootType getWorkersResponseRootType = client.GetWorkers(counter);
             totalPages = Integer.parseInt(getWorkersResponseRootType.getResponseResults().getTotalPages().toString());
             getWorkersResponseRootType.getResponseData().getWorker().stream().map((worker) -> new GetWorkersHelper(worker)).map((GetWorkersHelper workersHelper) -> {
                 List<Tblgetworkers> tblgetworkers = tblgetworkersRepository.findByemployeeid(workersHelper.getEmployeeid());

@@ -40,7 +40,6 @@ import com.hikmat30ce.workday.integrator.hr.generated.WorkerType;
  * @skype huk9791
  * @email huk9191@gmail.com
  */
-
 public class GetWorkersHelper {
 
     private WorkerType _workerType;
