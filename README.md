@@ -10,13 +10,14 @@ workday.hr.target.tenant=yourTenantName
 workday.hr.target.host=https://yourworkdayhostname
 workday.hr.target.username=IntegrationUser
 workday.hr.target.password=IntegrationUserPassword
+workday.hr.getworkers.count=800
 ```
 `workday.hr.target.version` is workday version, currently it is working with v27.0.<br />
 `workday.hr.target.tenant` is your company tenant name. you can locate tenant name in this url `https://<Host>/<Tenant>/d/home.htmld?redirect=n`<br />
 `workday.hr.target.host` is the host name of your workday tenant. in above url you can locate it.<br />
 `workday.hr.target.username` and `workday.hr.target.password` you have to create Username in your workday tenant by accessing task **Create Integration System User**. Assign approprite rights to the user.
 ![Create Integration System User](/screenshots/Createintuser.JPG "Create Integration System User")
-
+`workday.hr.getworkers.count` is the count of workers which will be fetched from workday in single request.<br />
 ### 2. Configure connectivity with mysql
 #### 2.1. Set application.properties
 Change `application.properties` file with below parameters
