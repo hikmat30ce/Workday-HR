@@ -1,9 +1,9 @@
 <project name="MyProject" default="useregex" basedir=".">
     <target name="useregex">
         <property file="/properties/dev.properties"/>
-        <replace  file="/var/jenkins_home/workspace/WorkdayIntegrator-HR/ws/src/main/resources/workday.properties" token="@TenantName@" value="${TenantName}" />
-        <replace  file="/var/jenkins_home/workspace/WorkdayIntegrator-HR/ws/src/main/resources/workday.properties" token="@WorkdayHost@" value="${WorkdayHost}" />
-        <replace  file="/var/jenkins_home/workspace/WorkdayIntegrator-HR/ws/src/main/resources/workday.properties" token="@IntegrationUser@" value="${IntegrationUser}" />
-        <replace  file="/var/jenkins_home/workspace/WorkdayIntegrator-HR/ws/src/main/resources/workday.properties" token="@IntegrationUserPassword@" value="${IntegrationUserPassword}" />
+        <replace  file="/var/jenkins_home/workspace/WorkdayIntegrator-HR/src/main/resources/workday.properties" token="@TenantName@" value="${TenantName}" />
+        <replace  file="/var/jenkins_home/workspace/WorkdayIntegrator-HR/src/main/resources/workday.properties" token="@WorkdayHost@" value="${WorkdayHost}" />
+        <replace  file="/var/jenkins_home/workspace/WorkdayIntegrator-HR/src/main/resources/workday.properties" token="@IntegrationUser@" value="${IntegrationUser}" />
+        <replace  file="/var/jenkins_home/workspace/WorkdayIntegrator-HR/src/main/resources/workday.properties" token="@IntegrationUserPassword@" value="${IntegrationUserPassword}" />
     </target>
 </project>
