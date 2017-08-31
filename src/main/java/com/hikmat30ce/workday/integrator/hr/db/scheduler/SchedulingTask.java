@@ -61,9 +61,9 @@ public class SchedulingTask {
 
             //Adding transction log
             client.setTransactionLogEnabled(true);
-            client.setUpdated_From("2017-08-13 17:28:00");
+            client.setUpdated_From("2014-08-13 17:28:00");
             client.setUpdated_Through("2017-08-13 17:30:00");
-            client.setEffective_From("2017-08-13 00:00:00");
+            client.setEffective_From("2014-08-13 00:00:00");
             client.setEffective_Through("2017-08-13 23:59:00");
 
             //client.setAsOfEffectiveDate("2012-09-13");
