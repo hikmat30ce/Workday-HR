@@ -44,8 +44,8 @@ public class SchedulingTask {
 
     //@Scheduled(fixedRate = 86400000) //24 hrs
     //@Scheduled(fixedRate = 43200000) //12 hrs
-    @Scheduled(fixedRate = 3600000) //1 hr
-    // @Scheduled(fixedRate = 60000)
+    //@Scheduled(fixedRate = 3600000) //1 hr
+     @Scheduled(fixedRate = 60000)
     public void WDGetWorkers() throws SAXException, IOException, ParserConfigurationException, DatatypeConfigurationException, ParseException {
 
         log.info("The time is now {}", Long.toString((new Timestamp(System.currentTimeMillis() / 1000)).getTime()));
