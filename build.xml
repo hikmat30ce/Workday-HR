@@ -1,6 +1,6 @@
 <project name="MyProject" default="useregex" basedir=".">
     <target name="useregex">
-        <property file="/properties/dev.properties"/>
+        <property file="/var/jenkins_home/workspace/ant-properties/dev.properties"/>
         <replace  file="/var/jenkins_home/workspace/WorkdayIntegrator-HR/src/main/resources/workday.properties" token="@TenantName@" value="${TenantName}" />
         <replace  file="/var/jenkins_home/workspace/WorkdayIntegrator-HR/src/main/resources/workday.properties" token="@WorkdayHost@" value="${WorkdayHost}" />
         <replace  file="/var/jenkins_home/workspace/WorkdayIntegrator-HR/src/main/resources/workday.properties" token="@IntegrationUser@" value="${IntegrationUser}" />
