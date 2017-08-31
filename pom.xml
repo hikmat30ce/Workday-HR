@@ -119,31 +119,31 @@
                 </executions>
             </plugin>
             <plugin>
-	<groupId>com.spotify</groupId>
-	<artifactId>docker-maven-plugin</artifactId>
-	<version>0.4.13</version>
-	<executions>
-		<execution>
-			<goals>
-				<goal>build</goal>
-			</goals>
-			<phase>package</phase>
-		</execution>
-	</executions>
-	<configuration>
-		<imageName>workdayhr/workdaytesthr</imageName>
-		<baseImage>frolvlad/alpine-oraclejdk8:slim</baseImage>
-		<entryPoint>["java", "-Dspring.profiles.active=local", "-DCCP_CONFIG_FILE=configCCP.xml", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
-		<!-- copy the service's jar file from target into the root directory of the image --> 
-		<resources>
-			<resource>
-				<targetPath>/</targetPath>
-				<directory>${project.build.directory}</directory>
-				<include>${project.build.finalName}.jar</include>
-			</resource>
-		</resources>
-	</configuration>
-</plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.4.13</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                        <phase>package</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <imageName>workdayhr/workdayintegratorhr</imageName>
+                    <baseImage>frolvlad/alpine-oraclejdk8:slim</baseImage>
+                    <entryPoint>["java", "-Dspring.profiles.active=local", "-DCCP_CONFIG_FILE=configCCP.xml", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+                    <!-- copy the service's jar file from target into the root directory of the image --> 
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
             
             
            
