@@ -1,0 +1,9 @@
+<project name="MyProject" default="useregex" basedir=".">
+    <target name="useregex">
+        <property file="/properties/dev.properties"/>
+        <replace  file="workday.properties" token="@TenantName@" value="${TenantName}" />
+        <replace  file="workday.properties" token="@WorkdayHost@" value="${WorkdayHost}" />
+        <replace  file="workday.properties" token="@IntegrationUser@" value="${IntegrationUser}" />
+        <replace  file="workday.properties" token="@IntegrationUserPassword@" value="${IntegrationUserPassword}" />
+    </target>
+</project>
