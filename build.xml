@@ -5,5 +5,9 @@
         <replace  file="/var/jenkins_home/workspace/WorkdayIntegrator-HR/src/main/resources/workday.properties" token="@WorkdayHost@" value="${WorkdayHost}" />
         <replace  file="/var/jenkins_home/workspace/WorkdayIntegrator-HR/src/main/resources/workday.properties" token="@IntegrationUser@" value="${IntegrationUser}" />
         <replace  file="/var/jenkins_home/workspace/WorkdayIntegrator-HR/src/main/resources/workday.properties" token="@IntegrationUserPassword@" value="${IntegrationUserPassword}" />
+		<replace  file="/var/jenkins_home/workspace/WorkdayIntegrator-HR/src/main/resources/application.properties" token="@workday.hr.db.host@" value="${workday.hr.db.host}" />
+		<replace  file="/var/jenkins_home/workspace/WorkdayIntegrator-HR/src/main/resources/application.properties" token="@workday.hr.db.dbname@" value="${workday.hr.db.dbname}" />
+		<replace  file="/var/jenkins_home/workspace/WorkdayIntegrator-HR/src/main/resources/application.properties" token="@workday.hr.db.username@" value="${workday.hr.db.username}" />
+		<replace  file="/var/jenkins_home/workspace/WorkdayIntegrator-HR/src/main/resources/application.properties" token="@workday.hr.db.password@" value="${workday.hr.db.password}" />
     </target>
 </project>
